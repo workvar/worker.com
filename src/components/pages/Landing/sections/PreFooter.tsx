@@ -10,6 +10,8 @@ import { Input, Button } from "@/src/components/common"
 export default function PreFooter() {
   const sectionRef = useRef<HTMLElement>(null);
   const [email, setEmail] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
   useGSAP(
     () => {
@@ -25,10 +27,50 @@ export default function PreFooter() {
     { scope: sectionRef }
   );
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle newsletter subscription
-    console.log("Subscribing email:", email);
+    setIsLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        if (response.status === 409 || data.code === "DUPLICATE_EMAIL") {
+          setMessage({
+            type: "error",
+            text: data.error || "This email is already subscribed to our newsletter",
+          });
+        } else {
+          setMessage({
+            type: "error",
+            text: data.error || "Something went wrong. Please try again later.",
+          });
+        }
+        return;
+      }
+
+      setMessage({
+        type: "success",
+        text: "Successfully subscribed! Check your email for confirmation.",
+      });
+      setEmail("");
+    } catch (error) {
+      setMessage({
+        type: "error",
+        text: "Network error. Please check your connection and try again.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -50,9 +92,33 @@ export default function PreFooter() {
               <p className="text-xs text-gray-900">
                 No spam. Just mindful productivity updates.
               </p>
-              <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 mt-4">
-                <Input.InputBox type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required={true} />
-                <Button.Button type="submit" label="Subscribe" />
+              <form onSubmit={handleSubmit} className="flex flex-col gap-2 mt-4">
+                <div className="flex flex-col md:flex-row gap-2">
+                  <Input.InputBox
+                    type="email"
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value);
+                      setMessage(null); // Clear message when user types
+                    }}
+                    placeholder="Enter your email"
+                    required={true}
+                    disabled={isLoading}
+                  />
+                  <Button.Button
+                    type="submit"
+                    label={isLoading ? "Subscribing..." : "Subscribe"}
+                    disabled={isLoading}
+                  />
+                </div>
+                <div
+                  className={`text-xs absolute bottom-4 ${message && message.type === "success"
+                      ? "text-green-800"
+                      : "text-red-800"
+                    }`}
+                >
+                  {message && message.text}
+                </div>
               </form>
             </div>
           </div>
