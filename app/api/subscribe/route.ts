@@ -7,15 +7,68 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY! // Use SERVICE ROLE key for inserts (server-side only!)
 );
 
+async function verifyRecaptchaToken(token: string): Promise<boolean> {
+  const secretKey = process.env.RECAPTCHA_SECRET_KEY;
+  
+  if (!secretKey) {
+    console.warn("RECAPTCHA_SECRET_KEY not set, skipping verification");
+    return true; // Allow in development if key is not set
+  }
+
+  try {
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${secretKey}&response=${token}`,
+    });
+
+    const data = await response.json();
+    return data.success === true;
+  } catch (error) {
+    console.error("reCAPTCHA verification error:", error);
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   try {
-    const { email, name, phone } = await request.json();
+    const { email, recaptchaToken } = await request.json();
 
     if (!email) {
       return new Response(JSON.stringify({ error: "Email is required" }), {
         status: 400,
         headers: { "Content-Type": "application/json" },
       });
+    }
+
+    // Verify reCAPTCHA token
+    if (!recaptchaToken) {
+      return new Response(
+        JSON.stringify({
+          error: "reCAPTCHA verification is required",
+          code: "INVALID_RECAPTCHA",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const isValidRecaptcha = await verifyRecaptchaToken(recaptchaToken);
+    if (!isValidRecaptcha) {
+      return new Response(
+        JSON.stringify({
+          error: "reCAPTCHA verification failed. Please try again.",
+          code: "INVALID_RECAPTCHA",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     // Check if email already exists

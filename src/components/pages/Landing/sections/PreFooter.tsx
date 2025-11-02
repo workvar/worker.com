@@ -5,13 +5,18 @@ import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import Link from "next/link";
 import { general } from "@/src/assets/icons";
-import { Input, Button } from "@/src/components/common"
+import { Input, Button, Modal } from "@/src/components/common"
 
 export default function PreFooter() {
   const sectionRef = useRef<HTMLElement>(null);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
+  const [showRecaptcha, setShowRecaptcha] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+  
+  // Get reCAPTCHA site key from environment variables
+  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
   useGSAP(
     () => {
@@ -29,6 +34,40 @@ export default function PreFooter() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Show reCAPTCHA modal if token is not already verified
+    if (!recaptchaToken) {
+      setShowRecaptcha(true);
+      return;
+    }
+
+    // Proceed with submission
+    await submitNewsletter();
+  };
+
+  const handleRecaptchaVerify = (token: string | null) => {
+    if (token) {
+      setRecaptchaToken(token);
+      // Close modal immediately - it will animate out
+      setShowRecaptcha(false);
+      // Automatically submit after modal animation completes
+      setTimeout(() => {
+        submitNewsletter();
+      }, 250);
+    }
+  };
+
+  const handleRecaptchaClose = () => {
+    setShowRecaptcha(false);
+    setRecaptchaToken(null);
+  };
+
+  const submitNewsletter = async () => {
+    if (!recaptchaToken) {
+      setShowRecaptcha(true);
+      return;
+    }
+
     setIsLoading(true);
     setMessage(null);
 
@@ -38,7 +77,7 @@ export default function PreFooter() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, recaptchaToken }),
       });
 
       const data = await response.json();
@@ -49,6 +88,14 @@ export default function PreFooter() {
             type: "error",
             text: data.error || "This email is already subscribed to our newsletter",
           });
+        } else if (response.status === 400 && data.code === "INVALID_RECAPTCHA") {
+          setMessage({
+            type: "error",
+            text: data.error || "reCAPTCHA verification failed. Please try again.",
+          });
+          // Reset token to require new verification
+          setRecaptchaToken(null);
+          setShowRecaptcha(true);
         } else {
           setMessage({
             type: "error",
@@ -63,20 +110,25 @@ export default function PreFooter() {
         text: "Successfully subscribed! Check your email for confirmation.",
       });
       setEmail("");
+      // Reset reCAPTCHA token after successful submission
+      setRecaptchaToken(null);
     } catch (error) {
       setMessage({
         type: "error",
         text: "Network error. Please check your connection and try again.",
       });
+      // Reset token on error to require new verification
+      setRecaptchaToken(null);
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <section ref={sectionRef} className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+    <>
+      <section ref={sectionRef} className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Left Column - Newsletter */}
           <div className="fade-in bg-green-100 rounded-lg p-8 lg:p-12">
             <h2 className="text-5xl font-bold text-gray-900 mb-4">
@@ -140,6 +192,17 @@ export default function PreFooter() {
         </div>
       </div>
     </section>
+
+    {/* reCAPTCHA Modal */}
+    {recaptchaSiteKey && (
+      <Modal.RecaptchaModal
+        isOpen={showRecaptcha}
+        onVerify={handleRecaptchaVerify}
+        onClose={handleRecaptchaClose}
+        siteKey={recaptchaSiteKey}
+      />
+    )}
+    </>
   );
 }
 
