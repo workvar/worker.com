@@ -16,6 +16,25 @@ const montserrat = Montserrat({
 export const metadata: Metadata = {
   title: "WorkVar - Your Productivity OS",
   description: "WorkVar - Your productivity OS with modern tools and solutions",
+  metadataBase: new URL("https://workvar.com"),
+  openGraph: {
+    title: "WorkVar - Your Productivity OS",
+    description: "WorkVar - Your productivity OS with modern tools and solutions",
+    url: "https://workvar.com",
+    siteName: "WorkVar",
+    images: [
+      { url: "/icon.png", width: 1200, height: 630, alt: "WorkVar" },
+    ],
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "32x32" },
+    ],
+    apple: [
+      { url: "/apple-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
