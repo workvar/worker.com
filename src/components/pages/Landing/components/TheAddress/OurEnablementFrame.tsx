@@ -13,10 +13,10 @@ const OurEnablementFrame = ({ ref }: OurEnablementFrameProps) => {
 
       {/* Content */}
       <div className="relative z-10 text-center px-8 max-w-4xl mx-auto">
-        <h1 className="text-4xl md:text-6xl font-bold text-white mb-2">
+        <h1 className="text-5xl md:text-6xl font-bold text-white mb-2">
           We enable, you achieve
         </h1>
-        <p className="text-xl md:text-2xl text-white font-light leading-relaxed">
+        <p className="text-base md:text-lg text-white font-light leading-relaxed">
           Built on science and simplicity, our tools reduce digital noise and help you stay in control. So you can spend less time reacting, and more time creating what truly matters.
         </p>
       </div>

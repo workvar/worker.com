@@ -50,7 +50,7 @@ export default function PreFooter() {
               <p className="text-xs text-gray-900">
                 No spam. Just mindful productivity updates.
               </p>
-              <form onSubmit={handleSubmit} className="flex gap-2 mt-4">
+              <form onSubmit={handleSubmit} className="flex flex-col md:flex-row gap-2 mt-4">
                 <Input.InputBox type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter your email" required={true} />
                 <Button.Button type="submit" label="Subscribe" />
               </form>

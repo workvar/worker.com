@@ -168,10 +168,25 @@ export const useHeroSectionAnimations = ({
         ease: "power2.inOut",
       })
 
-      timeline.to(videoRef.current, {
-        display: "block",
+      // timeline.fromTo(videoRef.current, {
+      //   y: "100%",
+      //   display: "none",
+      // }, {
+      //   ease: "power2.inOut",
+      //   duration: 1,
+      //   y: "100%",
+      //   display: "flex",
+      // })
+
+      timeline.fromTo("#forest-video", {
+        display: "none",
+        y: "100%",
+      }, {
         ease: "power2.inOut",
-        duration: 4,
+        duration: 2,
+        delay: 0.5,
+        y: "0%",
+        display: "flex",
       })
     }
   }, { scope: containerRef });

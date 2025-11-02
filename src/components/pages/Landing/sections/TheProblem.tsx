@@ -41,10 +41,10 @@ export default function TheProblem() {
   return (
     <section ref={sectionRef} className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-6xl font-bold text-black mb-6 text-center fade-in">
+        <h2 className="text-5xl md:text-6xl font-bold text-black mb-6 text-center fade-in">
           The problem
         </h2>
-        <p className="text-lg text-gray-500 mb-12 text-center max-w-4xl mx-auto fade-in">
+        <p className="text-base md:text-lg text-gray-500 mb-12 text-center max-w-4xl mx-auto fade-in">
           The digital exposure we experience today is astronomical. We're constantly surrounded by screens, pings, and notifications that demand our attention. Every vibration or alert pulls us into a loop of quick checks and endless scrolling, leaving little room for stillness or focus.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">

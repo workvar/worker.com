@@ -47,10 +47,10 @@ export default function TheEpidemic() {
     <section ref={sectionRef} className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <div className="fade-in w-full mb-5 text-center">
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-5xl md:text-6xl font-bold text-gray-900 mb-4">
             Its an epidemic
           </h2>
-          <p className="text-lg text-gray-700">
+          <p className="text-base md:text-lg text-gray-700">
             We live in an age of constant stimulation — and the numbers tell the story.
           </p>
         </div>
@@ -77,6 +77,7 @@ export default function TheEpidemic() {
                 autoPlay
                 loop
                 muted
+                controls={false}
                 playsInline
                 className="w-full h-full object-cover"
               >

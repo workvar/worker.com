@@ -11,7 +11,7 @@ const PillarsOfProductivity = ({ ref }: PillarsOfProductivityProps) => {
   return (
     <div ref={ref} className="w-screen h-screen flex flex-col items-center justify-center px-6">
       {/* Title */}
-      <h2 className="text-4xl md:text-6xl font-bold text-white mb-8 text-center z-10">
+      <h2 className="text-5xl md:text-6xl font-bold text-white mb-8 text-center z-10">
         The pillars of productivity
       </h2>
 
