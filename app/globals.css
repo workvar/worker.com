@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  overflow-x: hidden;
+}
+
+
+.text-gradient {
+  background: linear-gradient(90deg, #9B44E4, #6849D1, #3E3BD0, #2282BC, #21B48B, #55CB5D);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #ffffff;
+  }
+}
+
+body {
+  font-family: var(--font-montserrat), Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-museo-moderno), Arial, Helvetica, sans-serif;
+}
+
+
+
+/* Liquid Glass Animations */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%) skewX(-15deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-15deg);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 3s infinite;
+}
+

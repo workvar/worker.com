@@ -1,0 +1,7 @@
+---
+description: Store all images and svg in assets folder
+alwaysApply: true
+---
+
+- Whenever generating a SVG file, store it in /src/assets/icons
+- Import this file/files in the index.ts of that folder, and then import those in the index.ts of assets folder (if assets is not already added), and then finally import it in the component where it needs to be imported. 
