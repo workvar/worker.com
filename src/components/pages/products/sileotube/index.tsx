@@ -1,26 +1,29 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { pages } from "@/src/assets";
+import { pages, icons } from "@/src/assets";
 import PreFooter from "../../Landing/sections/PreFooter";
 import { FeatureItem, AppShowcaseIt } from "./components";
 
 import { Features, AppShowcaseItems, StoreData } from "./data";
 
 const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   return (
     <div>
       {/* Hero Section */}
       <section className="py-12 md:py-16 mx-auto px-10 bg-gradient-to-b from-blue-200/80 to-white">
         <div className="mx-auto pt-18 text-center md:max-w-[80vw]">
-          <h1 className="text-6xl xl:text-8xl leading-tight font-semibold text-gray-900">
-            A calming, decluttered<br />YouTube experience
+          <h1 className="text-6xl xl:text-8xl leading-tight text-gray-900">
+            {redirectType == "install" ? <><span className="font-semibold">Thank you</span> <br /><span className="text-gray-900 text-medium">for installing SileoTube!</span></> : <><span className="text-gray-900 font-semibold">A calming, decluttered</span> <br />YouTube experience</>}
           </h1>
           <p className="mt-4 text-gray-600 mx-auto text-xl md:text-2xl lg:text-3xl md:w-[80%] xl:w-[70%] mx-auto">
-            Distraction-blocking extension, so you can focus on what you want to do. Download now for free.
+            {redirectType == "install" ? "Distraction-blocking extension, so you can focus on what you want to do. Download now for free." : "Install SileoTube to get a calming, decluttered YouTube experience. It's free and open source."}
           </p>
-          {/* {redirectType} */}
           <div className="mt-6 flex flex-col md:flex-row items-center justify-center gap-4">
-            {StoreData.map((store) => (
+            {redirectType != "install" && StoreData.map((store) => (
               <div key={store.storeName} className="flex flex-col items-center gap-1 w-full md:w-auto">
                 <Link
                   href={store.url}
@@ -41,17 +44,33 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
             )
             )}
 
+            {redirectType == "install" &&
+              <div className="w-full mt-6">
+                <p
+                  onClick={() => setIsExpanded(!isExpanded)}
+                  className="w-full flex items-center justify-center gap-2 text-gray-600 hover:text-gray-700 transition-colors"
+                >
+                  <span className="text-lg md:text-xl">Get to know your extension</span>
+                  <icons.general.ChevronDown 
+                    className={`w-5 h-5 text-gray-700 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} 
+                  />
+                </p>
+              </div>
+            }
+
           </div>
 
-          {/* Video Placeholder */}
-          <div className="mt-10 aspect-video w-full rounded-2xl bg-gray-200 mx-auto md:max-w-4xl flex items-center justify-center">
-            <div className="w-16 h-16 rounded-full bg-black/80 text-white grid place-items-center">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+          {/* Image Placeholder */}
+          <div className="mt-10 w-full mx-auto md:max-w-4xl flex items-center justify-center">
+            <Image 
+              src={pages.products.SileoTube.bgImage} 
+              alt="SileoTube Promo Video" 
+              width={1000} 
+              height={1000} 
+              className="rounded-2xl max-w-full h-auto"
+              unoptimized
+            />
           </div>
-          <p className="mt-4 text-gray-400 text-lg md:text-xl">Watch the promo video</p>
         </div>
       </section>
 
