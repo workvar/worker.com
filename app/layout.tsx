@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import { MuseoModerno, Montserrat } from "next/font/google";
 import "./globals.css";
 import { Header, Footer } from "@/src/components/common";  
+import { Analytics } from "@vercel/analytics/next"
+import Clarity from "@microsoft/clarity";
+
+Clarity.init(process.env.NEXT_PUBLIC_CLARITY_ID || "");
 
 const museoModerno = MuseoModerno({
   subsets: ["latin"],
@@ -68,6 +72,7 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <Analytics />
       </body>
     </html>
   );
