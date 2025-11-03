@@ -19,6 +19,7 @@
     "@gsap/react": "^2.1.2",
     "@microsoft/clarity": "^1.0.0",
     "@supabase/supabase-js": "^2.78.0",
+    "@typeform/embed-react": "^4.6.0",
     "@types/node": "^24.9.2",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
