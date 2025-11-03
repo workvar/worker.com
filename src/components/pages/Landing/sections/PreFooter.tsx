@@ -127,7 +127,7 @@ export default function PreFooter() {
   return (
     <>
       <section ref={sectionRef} className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="mx-auto px-10 md:max-w-[80vw]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
           {/* Left Column - Newsletter */}
           <div className="fade-in bg-green-100 rounded-lg p-8 lg:p-12">

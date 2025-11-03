@@ -1,7 +1,14 @@
+"use client";
+
+import { SileoTubeComponent } from "@/src/components/pages/products";
+import { useSearchParams } from "next/navigation";
+
 export default function SileoTube() {
-  return (  
-    <div className="min-h-screen bg-red-400">
-      <h1>SileoTube</h1>
+  const searchParams = useSearchParams();
+  const redirectType = searchParams.get("redirectType");
+  return (
+    <div className="min-h-screen">
+      <SileoTubeComponent redirectType={redirectType} />
     </div>
   );
 }

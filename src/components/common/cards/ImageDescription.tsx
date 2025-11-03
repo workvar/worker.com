@@ -40,6 +40,8 @@ const ImageDescription = ({
                     <Image
                         src={image}
                         alt={imageAlt}
+                        width={1000}
+                        height={1000}
                         className="fit-contain h-[80%] md:h-[100%] w-auto"
                     />
                 </div>
