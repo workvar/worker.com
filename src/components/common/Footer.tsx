@@ -4,11 +4,123 @@ import Image from "next/image";
 import Link from "next/link";
 import { company, icons } from "@/src/assets";
 
+const footerLinks = [
+  {
+    title: "Products",
+    links: [
+      {
+        title: "SileoTube",
+        href: "/products/sileotube",
+      },
+      {
+        title: "ProjeX",
+        href: "/products/projex",
+      },
+    ],
+  },
+  {
+    title: "Company",
+    links: [
+      {
+        title: "About",
+        href: "/about",
+      },
+      {
+        title: "News",
+        href: "/newsroom",
+      },
+      {
+        title: "Media Kit",
+        href: "/media-kit",
+      },
+      {
+        title: "Contact",
+        href: "/contact",
+      },
+    ],
+  },
+  {
+    title: "Resources",
+    links: [
+      {
+        title: "Blog",
+        href: "/blog",
+      },
+      {
+        title: "Newsletter",
+        href: "/newsletter",
+      },
+      {
+        title: "Events",
+        href: "/events",
+      },
+      {
+        title: "Help Center",
+        href: "/help-center",
+      },
+      {
+        title: "Support",
+        href: "/support",
+      },
+    ],
+  },
+  {
+    title: "Legal",
+    links: [
+      {
+        title: "Terms",
+        href: "/terms",
+      },
+      {
+        title: "Privacy",
+        href: "/privacy",
+      },
+      {
+        title: "Cookies",
+        href: "/cookies",
+      },
+    ],
+  },
+];
+
+const socialLinks = [
+  {
+    title: "X (Twitter)",
+    ariaLabel: "X (Twitter)",
+    href: "https://twitter.com",
+    icon: icons.social.TwitterIcon,
+  },
+  {
+    title: "Instagram",
+    ariaLabel: "Instagram",
+    href: "https://instagram.com",
+    icon: icons.social.InstagramIcon,
+  },
+  {
+    title: "YouTube",
+    ariaLabel: "YouTube",
+    href: "https://youtube.com",
+    icon: icons.social.YouTubeIcon,
+  },
+  {
+    title: "Facebook",
+    ariaLabel: "Facebook",
+    href: "https://facebook.com",
+    icon: icons.social.FacebookIcon,
+  },
+  {
+    title: "LinkedIn",
+    ariaLabel: "LinkedIn",
+    href: "https://www.linkedin.com/company/109643291",
+    icon: icons.social.LinkedInIcon,
+  },
+];
+
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="w-full bg-black text-white">
+    <footer className="w-full bg-white text-white border-t border-gray-200">
       <div className="max-w-7xl mx-auto px-6 py-12 lg:py-16">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-12 mb-12">
@@ -16,7 +128,7 @@ export default function Footer() {
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-1">
               <Image
-                src={company.WhiteTransparentLogo}
+                src={company.BlackTransparentLogo}
                 alt="Work"
                 width={120}
                 height={40}
@@ -26,209 +138,53 @@ export default function Footer() {
             <p className="text-gray-400 text-sm mx-auto md:ml-3">
               Your productivity OS
             </p>
+            {/* Bottom Section with Social Icons and Copyright */}
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8">
+              <div className="flex gap-6">
+                {socialLinks.map((social) => {
+                  const IconComponent = social.icon;
+                  return (
+                    <a
+                      key={social.href}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:opacity-70 transition-opacity"
+                      aria-label={social.ariaLabel}
+                    >
+                      <IconComponent />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
           </div>
 
-          {/* Products Column */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm md:text-base">
-              Products
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/products/sileotube"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  SileoTube
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/products/projex"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  ProjeX
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company Column */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm md:text-base">
-              Company
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/about"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/newsroom"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  News
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/media-kit"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Media Kit
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources Column */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm md:text-base">
-              Resources
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/blog"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/newsletter"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Newsletter
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/events"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/help-center"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Help Center
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/support"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Support
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Legal Column */}
-          <div>
-            <h3 className="text-white font-semibold mb-4 text-sm md:text-base">
-              Legal
-            </h3>
-            <ul className="space-y-3">
-              <li>
-                <Link
-                  href="/terms"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Terms
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Privacy
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/cookies"
-                  className="text-gray-400 text-sm hover:text-white transition-colors"
-                >
-                  Cookies
-                </Link>
-              </li>
-            </ul>
-          </div>
+          {/* Footer Links Columns */}
+          {footerLinks.map((section) => (
+            <div key={section.title}>
+              <h3 className="text-black mb-4 text-sm md:text-base">
+                {section.title}
+              </h3>
+              <ul className="space-y-3">
+                {section.links.map((link) => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-gray-400 text-sm hover:text-black transition-colors"
+                    >
+                      {link.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-
-        {/* Bottom Section with Social Icons and Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-gray-800">
-          <p className="text-gray-400 text-xs">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-6 pt-8 border-t border-gray-200">
+          <p className="text-gray-400 text-xs text-right w-full">
             © {currentYear} WorkVar, All rights reserved
           </p>
-          <div className="flex gap-6">
-            <a
-              href="https://twitter.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:opacity-70 transition-opacity"
-              aria-label="X (Twitter)"
-            >
-              <icons.social.TwitterIcon />
-            </a>
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:opacity-70 transition-opacity"
-              aria-label="Instagram"
-            >
-              <icons.social.InstagramIcon />
-            </a>
-            <a
-              href="https://youtube.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:opacity-70 transition-opacity"
-              aria-label="YouTube"
-            >
-              <icons.social.YouTubeIcon />
-            </a>
-            <a
-              href="https://facebook.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:opacity-70 transition-opacity"
-              aria-label="Facebook"
-            >
-              <icons.social.FacebookIcon />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-white hover:opacity-70 transition-opacity"
-              aria-label="LinkedIn"
-            >
-              <icons.social.LinkedInIcon />
-            </a>
-          </div>
         </div>
       </div>
     </footer>

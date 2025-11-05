@@ -9,7 +9,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="w-full fixed top-0 z-50">
+    <header className="w-screen fixed top-0 z-50">
       {/* Liquid Glass Container */}
       <div className="relative w-full">
         {/* Glass Background with Blur */}
@@ -26,17 +26,25 @@ export default function Header() {
           <div className="flex justify-between items-center">
             <Link href="/" className="flex items-center relative z-10">
               <Image
+                src={company.BlackTransparentLogo}
+                alt="Work"
+                width={80}
+                height={20}
+                className="h-5 w-auto dark:hidden"
+                priority
+              />
+              <Image
                 src={company.WhiteTransparentLogo}
                 alt="Work"
                 width={80}
                 height={20}
-                className="h-5 w-auto drop-shadow-sm"
+                className="h-5 w-auto hidden dark:block"
                 priority
               />
             </Link>
             
             {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-6 lg:gap-12 relative z-10 text-white">
+            <div className="hidden md:flex gap-6 lg:gap-12 relative z-10 text-black dark:text-white">
               <Link
                 href="/vision"
                 className="uppercase text-sm lg:text-base font-medium hover:opacity-80 transition-all duration-300 relative group"
@@ -63,7 +71,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-white focus:outline-none relative z-10 bg-white/10 dark:bg-gray-800/10 backdrop-blur-sm rounded-lg p-2 hover:bg-white/20 dark:hover:bg-gray-800/20 transition-all duration-300"
+              className="md:hidden text-black dark:text-white focus:outline-none relative z-10 bg-white/10 dark:bg-gray-800/10 backdrop-blur-sm rounded-lg p-2 hover:bg-white/20 dark:hover:bg-gray-800/20 transition-all duration-300"
               aria-label="Toggle menu"
             >
               <svg

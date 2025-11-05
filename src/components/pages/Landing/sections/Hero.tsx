@@ -36,7 +36,7 @@ export default function Hero() {
   return (
     <section
       ref={containerRef}
-      className="relative w-full h-screen overflow-hidden bg-black"
+      className="relative w-full h-screen overflow-hidden bg-white"
     >
       <div className="h-screen w-screen flex flex-col items-center justify-center relativey-500" id="hero-container">
         <div id="top-half" className="h-[40%] w-full relative flex flex-col items-center justify-end">
@@ -67,7 +67,7 @@ export default function Hero() {
               className="w-[100vw] h-full md:h-3/5 object-cover rounded-xl hidden"
             />
           </div>
-          <div className="grid grid-cols-1 gap-x-2 gap-y-4 relative z-20 pt-5 text-white px-10" ref={(node) => {
+          <div className="grid grid-cols-1 gap-x-2 gap-y-4 relative z-20 pt-5 text-black px-10" ref={(node) => {
             todoItemsContainerRef.current = node;
             todoItemsContainerRefWithVideo.current = node;
           }}>

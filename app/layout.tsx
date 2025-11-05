@@ -66,7 +66,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${museoModerno.variable} ${montserrat.variable}`}>
-      <body className="flex flex-col min-h-screen">
+      <body className="flex flex-col min-h-screen w-screen p-0 m-0">
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />

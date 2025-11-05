@@ -16,13 +16,13 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
       {/* Hero Section */}
       <section className="py-12 md:py-16 mx-auto px-10 bg-gradient-to-b from-blue-200/80 to-white">
         <div className="mx-auto pt-18 text-center md:max-w-[80vw]">
-          <h1 className="text-6xl xl:text-8xl leading-tight text-gray-900">
+          <h1 className="text-5xl xl:text-6xl leading-tight text-gray-900">
             {redirectType == "install" ? <><span className="font-semibold">Thank you</span> <br /><span className="text-gray-900 text-medium">for installing SileoTube!</span></> : <><span className="text-gray-900 font-semibold">A calming, decluttered</span> <br />YouTube experience</>}
           </h1>
-          <p className="mt-4 text-gray-600 mx-auto text-xl md:text-2xl lg:text-3xl md:w-[80%] xl:w-[70%] mx-auto">
+          <p className="mt-4 text-gray-600 mx-auto text-lg md:text-xl lg:text-2xl md:w-[80%] xl:w-[50%] mx-auto">
             {redirectType == "install" ? "Distraction-blocking extension, so you can focus on what you want to do. Download now for free." : "Install SileoTube to get a calming, decluttered YouTube experience. It's free and open source."}
           </p>
-          <div className="mt-6 flex flex-col md:flex-row items-center justify-center gap-4">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-4">
             {redirectType != "install" && StoreData.map((store) => (
               <div key={store.storeName} className="flex flex-col items-center gap-1 w-full md:w-auto">
                 <Link
@@ -118,6 +118,18 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
       {/* CTA Cards */}
       <section className="pb-12 mx-auto">
         <PreFooter />
+      </section>
+
+      {/* Privacy Policy Link */}
+      <section className="pb-8 mx-auto px-10">
+        <div className="text-gray-500 text-center text-sm">
+          <Link 
+            href="/products/sileotube/privacy" 
+            className="hover:text-gray-700 underline transition-colors"
+          >
+            Privacy Statement
+          </Link>
+        </div>
       </section>
     </div>
   );
