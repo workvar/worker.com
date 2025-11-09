@@ -22,23 +22,37 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
           <p className="mt-4 text-gray-600 mx-auto text-lg md:text-xl lg:text-2xl md:w-[80%] xl:w-[50%] mx-auto">
             {redirectType == "install" ? "Distraction-blocking extension, so you can focus on what you want to do. Download now for free." : "Install SileoTube to get a calming, decluttered YouTube experience. It's free and open source."}
           </p>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-center gap-4">
+          <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 items-center justify-center gap-4 max-w-6xl mx-auto">
             {redirectType != "install" && StoreData.map((store) => (
-              <div key={store.storeName} className="flex flex-col items-center gap-1 w-full md:w-auto">
-                <Link
-                  href={store.url}
-                  target="_blank"
-                  className="
-                  flex flex-row justify-center 
-                  gap-2 px-4 py-2 
-                  border-3 border-gray-700 rounded-[10px] 
-                  shadow-sm hover:shadow-lg 
-                  bg-transparent hover:bg-gray-200 transition 
-                  min-w-full md:min-w-80"
-                >
-                  <Image src={store.icon} alt={store.iconAlt} width={32} height={32} className="my-auto" />
-                  <span className="text-base md:text-lg my-auto pl-2">{store.storeName}</span>
-                </Link>
+              <div key={store.storeName} className="flex flex-col items-center gap-1 w-full">
+                {store.url && store.url !== "" ? (
+                  <Link
+                    href={store.url}
+                    target="_blank"
+                    className="w-full
+                    flex flex-row justify-center 
+                    gap-2 px-4 py-2 
+                    border-1 border-gray-700 rounded-[10px] 
+                    shadow-sm hover:shadow-lg 
+                    bg-transparent hover:bg-gray-200 transition"
+                  >
+                    <Image src={store.icon} alt={store.iconAlt} width={32} height={32} className="my-auto" />
+                    <span className="text-base md:text-lg my-auto pl-2">{store.storeName}</span>
+                  </Link>
+                ) : (
+                  <div
+                    className="w-full
+                    flex flex-row justify-center 
+                    gap-2 px-4 py-2 
+                    border-1 border-gray-700 rounded-[10px]
+                    shadow-sm 
+                    bg-transparent 
+                    cursor-not-allowed"
+                  >
+                    <Image src={store.icon} alt={store.iconAlt} width={32} height={32} className="my-auto" />
+                    <span className="text-base md:text-lg my-auto pl-2">{store.storeName}</span>
+                  </div>
+                )}
                 <span className="text-md text-gray-500">{store.versionInfo}</span>
               </div>
             )
@@ -51,8 +65,8 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
                   className="w-full flex items-center justify-center gap-2 text-gray-600 hover:text-gray-700 transition-colors"
                 >
                   <span className="text-lg md:text-xl">Get to know your extension</span>
-                  <icons.general.ChevronDown 
-                    className={`w-5 h-5 text-gray-700 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`} 
+                  <icons.general.ChevronDown
+                    className={`w-5 h-5 text-gray-700 transition-transform duration-200 ${isExpanded ? 'rotate-180' : ''}`}
                   />
                 </p>
               </div>
@@ -62,11 +76,11 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
 
           {/* Image Placeholder */}
           <div className="mt-10 w-full mx-auto md:max-w-4xl flex items-center justify-center">
-            <Image 
-              src={pages.products.SileoTube.bgImage} 
-              alt="SileoTube Promo Video" 
-              width={1000} 
-              height={1000} 
+            <Image
+              src={pages.products.SileoTube.bgImage}
+              alt="SileoTube Promo Video"
+              width={1000}
+              height={1000}
               className="rounded-2xl max-w-full h-auto"
               unoptimized
             />
@@ -123,8 +137,8 @@ const SileoTubeComponent = ({ redirectType }: { redirectType?: string | null }) 
       {/* Privacy Policy Link */}
       <section className="pb-8 mx-auto px-10">
         <div className="text-gray-500 text-center text-sm">
-          <Link 
-            href="/products/sileotube/privacy" 
+          <Link
+            href="/products/sileotube/privacy"
             className="hover:text-gray-700 underline transition-colors"
           >
             Privacy Statement
