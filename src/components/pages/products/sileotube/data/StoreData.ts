@@ -25,11 +25,10 @@ const StoreData = [
     },
     {
       storeName: "Firefox",
-      url: "",
+      url: "https://addons.mozilla.org/en-US/firefox/addon/sileotube/",
       icon: icons.social.FirefoxIcon,
       iconAlt: "Firefox Icon",
-      // versionInfo: "for Firefox 100+",
-      versionInfo: "Coming Soon",
+      versionInfo: "for Firefox 100+",
     },
   ]
 
